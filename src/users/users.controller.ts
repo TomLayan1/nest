@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -13,8 +13,8 @@ export class UsersController {
   }
   // GET /users/:id
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findOne(id);
   }
   // @Param('intern') intern: string
   // POST /users
@@ -24,12 +24,12 @@ export class UsersController {
   }
   // PATCH /users/:id
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatedUser: { name?: string, email?: string, role?: 'INTERN' | 'ENGINEER' | 'ADMIN' }) {
-    return this.usersService.update(+id, updatedUser);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatedUser: { name?: string, email?: string, role?: 'INTERN' | 'ENGINEER' | 'ADMIN' }) {
+    return this.usersService.update(id, updatedUser);
   }
   // DELETE /users/:id
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.usersService.delete(+id);
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.delete(id);
   }
-}  
+}

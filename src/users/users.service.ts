@@ -59,7 +59,7 @@ export class UsersService {
   }
   // update a user detail
   update(id: number, updatedUser: { name?: string, email?: string, role?: 'INTERN' | 'ENGINEER' | 'ADMIN'}) {
-    this.users === this.users.map(user => {
+    this.users = this.users.map(user => {
       if (user.id === id) {
         return {...user, ...updatedUser }
       }
@@ -70,7 +70,7 @@ export class UsersService {
   // delete user
   delete(id: number) {
     const  removedUser = this.findOne(id);
-    this.users.filter(user => user.id !== id);
+    this.users = this.users.filter(user => user.id !== id);
     return removedUser;
   }
 }
